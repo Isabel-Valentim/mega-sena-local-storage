@@ -1,0 +1,12 @@
+//armazenamento de dados
+//somentes em string
+// dados excluídos pelo navegador ou usuário
+
+// window.localStorage.getItem(key) 
+// recupera dados relacionados a key
+// JSON.parse(string) 
+// transforma string in JSON 
+
+// window.localStorage.setItem(key) 
+// define dados relacionados a key
+// JSON.stringify(objeto)
