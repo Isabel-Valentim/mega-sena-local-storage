@@ -1,8 +1,28 @@
 var state = { board: [], currentGame: [], savedGames: [] };
 
 function start() {
+  readLocalStorage()
   createBoard();
   newGame();
+}
+
+function readLocalStorage(){
+  if(window.localStorage){ //checar que o navegador permite fazer isso
+
+    return; //se sim faça nada, passe para próxima linha da função
+  }
+
+  var savedGamesFromLocalStorage = window.localStorage.getItem('saved-games') 
+  //essa variável busca um item por uma chave que tem que definir => saved-games
+
+  if(savedGamesFromLocalStorage){
+    state.savedGames = JSON.parse(savedGamesFromLocalStorage)
+  } // se eu tiver um jogo eu atribuo para o savedgames 
+  // JSON.parse serve para tornar o conteúdo em string
+}
+
+function writeToLocalStorage(){
+  window.localStorage.setItem('saved-games', JSON.stringify(state.savedGames))
 }
 
 function createBoard() {
@@ -16,8 +36,6 @@ function createBoard() {
 function newGame() {
   resetGame();
   render();
-
-  console.log(state.currentGame);
 }
 
 function render() {
@@ -60,8 +78,6 @@ function handleNumberClick(event) {
   } else {
     addNumberToGame(value);
   }
-
-  console.log(state.currentGame);
   render();
 }
 
@@ -185,9 +201,8 @@ function saveGame() {
   }
 
   state.savedGames.push(state.currentGame);
+  writeToLocalStorage()
   newGame();
-
-  console.log(state.savedGames);
 }
 
 function isGameComplete() {
@@ -206,7 +221,6 @@ function randomGame() {
     addNumberToGame(randomNumber);
   }
 
-  console.log(state.currentGame);
   render();
 }
 
