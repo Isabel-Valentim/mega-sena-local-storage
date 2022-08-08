@@ -5,22 +5,23 @@ function start() {
   createBoard();
   newGame();
 }
+//checar que o navegador permite fazer isso
+//se sim faça nada, passe para próxima linha da função
+//essa variável busca um item por uma chave que tem que definir => saved-games
+ // se eu tiver um jogo eu atribuo para o savedgames 
+// JSON.parse serve para analisar conteúdo e ver se é compatível com o json
 
 function readLocalStorage(){
-  if(window.localStorage){ //checar que o navegador permite fazer isso
-
-    return; //se sim faça nada, passe para próxima linha da função
+  if(!window.localStorage){ 
+    return; 
   }
-
-  var savedGamesFromLocalStorage = window.localStorage.getItem('saved-games') 
-  //essa variável busca um item por uma chave que tem que definir => saved-games
-
+  let savedGamesFromLocalStorage = window.localStorage.getItem('saved-games')
+  
   if(savedGamesFromLocalStorage){
-    state.savedGames = JSON.parse(savedGamesFromLocalStorage)
-  } // se eu tiver um jogo eu atribuo para o savedgames 
-  // JSON.parse serve para tornar o conteúdo em string
+    state.savedGames = JSON.parse(savedGamesFromLocalStorage)} 
 }
 
+// set item tem dois ngç, a chave e o valor no caso vai ser transformado em string
 function writeToLocalStorage(){
   window.localStorage.setItem('saved-games', JSON.stringify(state.savedGames))
 }
